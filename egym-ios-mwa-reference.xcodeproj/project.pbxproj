@@ -1,0 +1,682 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C789F6B2E8BCEB6008FE324 /* IonicPortals in Frameworks */ = {isa = PBXBuildFile; productRef = 1C789F6A2E8BCEB6008FE324 /* IonicPortals */; };
+		1C789F6E2E8BCECD008FE324 /* IonicLiveUpdates in Frameworks */ = {isa = PBXBuildFile; productRef = 1C789F6D2E8BCECD008FE324 /* IonicLiveUpdates */; };
+		1C789F702E8BCEDD008FE324 /* Capacitor in Frameworks */ = {isa = PBXBuildFile; productRef = 1C789F6F2E8BCEDD008FE324 /* Capacitor */; };
+		1C789F722E8BCEDD008FE324 /* Cordova in Frameworks */ = {isa = PBXBuildFile; productRef = 1C789F712E8BCEDD008FE324 /* Cordova */; };
+		1C78A0602E8BD4E8008FE324 /* CapacitorPreferences in Frameworks */ = {isa = PBXBuildFile; productRef = 1C78A05F2E8BD4E8008FE324 /* CapacitorPreferences */; };
+		1C78A0692E8BD9CC008FE324 /* CapacitorPreferences in Frameworks */ = {isa = PBXBuildFile; productRef = 1C78A0682E8BD9CC008FE324 /* CapacitorPreferences */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1C60A6612E8B11EC008A5087 /* egym-ios-mwa-reference.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "egym-ios-mwa-reference.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C789FC92E8BD4BC008FE324 /* action.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = action.yml; sourceTree = "<group>"; };
+		1C789FCA2E8BD4BC008FE324 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		1C789FCD2E8BD4BC008FE324 /* bug-report.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "bug-report.md"; sourceTree = "<group>"; };
+		1C789FCE2E8BD4BC008FE324 /* feature-request.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "feature-request.md"; sourceTree = "<group>"; };
+		1C789FD02E8BD4BC008FE324 /* bot.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = bot.yml; sourceTree = "<group>"; };
+		1C789FD12E8BD4BC008FE324 /* ci.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = ci.yml; sourceTree = "<group>"; };
+		1C789FD22E8BD4BC008FE324 /* dev-releases-for-pr.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "dev-releases-for-pr.yml"; sourceTree = "<group>"; };
+		1C789FD32E8BD4BC008FE324 /* needs-reply.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "needs-reply.yml"; sourceTree = "<group>"; };
+		1C789FD42E8BD4BC008FE324 /* publish-android.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-android.yml"; sourceTree = "<group>"; };
+		1C789FD52E8BD4BC008FE324 /* publish-ios.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-ios.yml"; sourceTree = "<group>"; };
+		1C789FD62E8BD4BC008FE324 /* publish-latest.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-latest.yml"; sourceTree = "<group>"; };
+		1C789FD72E8BD4BC008FE324 /* publish-npm-alpha.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-alpha.yml"; sourceTree = "<group>"; };
+		1C789FD82E8BD4BC008FE324 /* publish-npm-beta.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-beta.yml"; sourceTree = "<group>"; };
+		1C789FD92E8BD4BC008FE324 /* publish-npm-dev.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-dev.yml"; sourceTree = "<group>"; };
+		1C789FDA2E8BD4BC008FE324 /* publish-npm-latest.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-latest.yml"; sourceTree = "<group>"; };
+		1C789FDB2E8BD4BC008FE324 /* publish-npm-latest-from-pre.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-latest-from-pre.yml"; sourceTree = "<group>"; };
+		1C789FDC2E8BD4BC008FE324 /* publish-npm-nightly.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-nightly.yml"; sourceTree = "<group>"; };
+		1C789FDD2E8BD4BC008FE324 /* publish-npm-rc.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "publish-npm-rc.yml"; sourceTree = "<group>"; };
+		1C789FDF2E8BD4BC008FE324 /* bot.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = bot.yml; sourceTree = "<group>"; };
+		1C789FE02E8BD4BC008FE324 /* cocoapods-deploy.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "cocoapods-deploy.yml"; sourceTree = "<group>"; };
+		1C789FE12E8BD4BC008FE324 /* ionic-issue-bot.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "ionic-issue-bot.yml"; sourceTree = "<group>"; };
+		1C789FE32E8BD4BC008FE324 /* definitions.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = definitions.ts; sourceTree = "<group>"; };
+		1C789FE42E8BD4BC008FE324 /* index.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = index.ts; sourceTree = "<group>"; };
+		1C789FE52E8BD4BC008FE324 /* web.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = web.ts; sourceTree = "<group>"; };
+		1C789FE72E8BD4BC008FE324 /* .eslintignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .eslintignore; sourceTree = "<group>"; };
+		1C789FE82E8BD4BC008FE324 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1C789FE92E8BD4BC008FE324 /* .prettierignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .prettierignore; sourceTree = "<group>"; };
+		1C789FEA2E8BD4BC008FE324 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		1C789FEB2E8BD4BC008FE324 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1C789FEC2E8BD4BC008FE324 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		1C789FED2E8BD4BC008FE324 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1C789FEE2E8BD4BC008FE324 /* rollup.config.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rollup.config.mjs; sourceTree = "<group>"; };
+		1C789FEF2E8BD4BC008FE324 /* tsconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
+		1C789FF12E8BD4BC008FE324 /* publish-module.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = "publish-module.gradle"; sourceTree = "<group>"; };
+		1C789FF22E8BD4BC008FE324 /* publish-root.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = "publish-root.gradle"; sourceTree = "<group>"; };
+		1C789FF42E8BD4BC008FE324 /* capacitor.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = capacitor.mjs; sourceTree = "<group>"; };
+		1C789FF52E8BD4BC008FE324 /* cjs.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = cjs.mjs; sourceTree = "<group>"; };
+		1C789FF62E8BD4BC008FE324 /* cli.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = cli.mjs; sourceTree = "<group>"; };
+		1C789FF72E8BD4BC008FE324 /* fn.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = fn.mjs; sourceTree = "<group>"; };
+		1C789FF82E8BD4BC008FE324 /* fs.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = fs.mjs; sourceTree = "<group>"; };
+		1C789FF92E8BD4BC008FE324 /* lerna.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = lerna.mjs; sourceTree = "<group>"; };
+		1C789FFA2E8BD4BC008FE324 /* prompts.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = prompts.mjs; sourceTree = "<group>"; };
+		1C789FFB2E8BD4BC008FE324 /* repo.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = repo.mjs; sourceTree = "<group>"; };
+		1C789FFC2E8BD4BC008FE324 /* subprocess.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = subprocess.mjs; sourceTree = "<group>"; };
+		1C789FFD2E8BD4BC008FE324 /* version.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.mjs; sourceTree = "<group>"; };
+		1C789FFF2E8BD4BC008FE324 /* android-settings-gradle-fix.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "android-settings-gradle-fix.mjs"; sourceTree = "<group>"; };
+		1C78A0012E8BD4BC008FE324 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1C78A0022E8BD4BC008FE324 /* apply-patches.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apply-patches.mjs"; sourceTree = "<group>"; };
+		1C78A0032E8BD4BC008FE324 /* publish-android.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "publish-android.sh"; sourceTree = "<group>"; };
+		1C78A0042E8BD4BC008FE324 /* set-capacitor-version.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "set-capacitor-version.mjs"; sourceTree = "<group>"; };
+		1C78A0052E8BD4BC008FE324 /* toggle-local.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "toggle-local.mjs"; sourceTree = "<group>"; };
+		1C78A0062E8BD4BC008FE324 /* update-all.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "update-all.mjs"; sourceTree = "<group>"; };
+		1C78A0082E8BD4BC008FE324 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1C78A0092E8BD4BC008FE324 /* .npmrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = .npmrc; sourceTree = "<group>"; };
+		1C78A00A2E8BD4BC008FE324 /* action-sheet */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "action-sheet"; sourceTree = "<group>"; };
+		1C78A00B2E8BD4BC008FE324 /* app */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = app; sourceTree = "<group>"; };
+		1C78A00C2E8BD4BC008FE324 /* app-launcher */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "app-launcher"; sourceTree = "<group>"; };
+		1C78A00D2E8BD4BC008FE324 /* browser */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = browser; sourceTree = "<group>"; };
+		1C78A00E2E8BD4BC008FE324 /* camera */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = camera; sourceTree = "<group>"; };
+		1C78A00F2E8BD4BC008FE324 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		1C78A0102E8BD4BC008FE324 /* clipboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = clipboard; sourceTree = "<group>"; };
+		1C78A0112E8BD4BC008FE324 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		1C78A0122E8BD4BC008FE324 /* device */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = device; sourceTree = "<group>"; };
+		1C78A0132E8BD4BC008FE324 /* dialog */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = dialog; sourceTree = "<group>"; };
+		1C78A0142E8BD4BC008FE324 /* lerna.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lerna.json; sourceTree = "<group>"; };
+		1C78A0152E8BD4BC008FE324 /* local-notifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "local-notifications"; sourceTree = "<group>"; };
+		1C78A0162E8BD4BC008FE324 /* network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = network; sourceTree = "<group>"; };
+		1C78A0172E8BD4BC008FE324 /* nx.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = nx.json; sourceTree = "<group>"; };
+		1C78A0182E8BD4BC008FE324 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		1C78A0192E8BD4BC008FE324 /* preferences */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = preferences; sourceTree = "<group>"; };
+		1C78A01A2E8BD4BC008FE324 /* push-notifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "push-notifications"; sourceTree = "<group>"; };
+		1C78A01B2E8BD4BC008FE324 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1C78A01C2E8BD4BC008FE324 /* screen-orientation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "screen-orientation"; sourceTree = "<group>"; };
+		1C78A01D2E8BD4BC008FE324 /* screen-reader */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "screen-reader"; sourceTree = "<group>"; };
+		1C78A01E2E8BD4BC008FE324 /* share */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = share; sourceTree = "<group>"; };
+		1C78A01F2E8BD4BC008FE324 /* splash-screen */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "splash-screen"; sourceTree = "<group>"; };
+		1C78A0202E8BD4BC008FE324 /* status-bar */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "status-bar"; sourceTree = "<group>"; };
+		1C78A0212E8BD4BC008FE324 /* text-zoom */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "text-zoom"; sourceTree = "<group>"; };
+		1C78A0222E8BD4BC008FE324 /* toast */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = toast; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1C60A6632E8B11EC008A5087 /* egym-ios-mwa-reference */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "egym-ios-mwa-reference";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C60A65E2E8B11EC008A5087 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C78A0692E8BD9CC008FE324 /* CapacitorPreferences in Frameworks */,
+				1C789F6E2E8BCECD008FE324 /* IonicLiveUpdates in Frameworks */,
+				1C789F722E8BCEDD008FE324 /* Cordova in Frameworks */,
+				1C78A0602E8BD4E8008FE324 /* CapacitorPreferences in Frameworks */,
+				1C789F6B2E8BCEB6008FE324 /* IonicPortals in Frameworks */,
+				1C789F702E8BCEDD008FE324 /* Capacitor in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C60A6582E8B11EC008A5087 = {
+			isa = PBXGroup;
+			children = (
+				1C78A0242E8BD4BC008FE324 /* Vendor */,
+				1C60A6632E8B11EC008A5087 /* egym-ios-mwa-reference */,
+				1C60A6622E8B11EC008A5087 /* Products */,
+				CFB9A02C49AF0B5B68977947 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1C60A6622E8B11EC008A5087 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C60A6612E8B11EC008A5087 /* egym-ios-mwa-reference.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C789FCB2E8BD4BC008FE324 /* changed-packages */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FC92E8BD4BC008FE324 /* action.yml */,
+				1C789FCA2E8BD4BC008FE324 /* main.js */,
+			);
+			path = "changed-packages";
+			sourceTree = "<group>";
+		};
+		1C789FCC2E8BD4BC008FE324 /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FCB2E8BD4BC008FE324 /* changed-packages */,
+			);
+			path = actions;
+			sourceTree = "<group>";
+		};
+		1C789FCF2E8BD4BC008FE324 /* ISSUE_TEMPLATE */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FCD2E8BD4BC008FE324 /* bug-report.md */,
+				1C789FCE2E8BD4BC008FE324 /* feature-request.md */,
+			);
+			path = ISSUE_TEMPLATE;
+			sourceTree = "<group>";
+		};
+		1C789FDE2E8BD4BC008FE324 /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FD02E8BD4BC008FE324 /* bot.yml */,
+				1C789FD12E8BD4BC008FE324 /* ci.yml */,
+				1C789FD22E8BD4BC008FE324 /* dev-releases-for-pr.yml */,
+				1C789FD32E8BD4BC008FE324 /* needs-reply.yml */,
+				1C789FD42E8BD4BC008FE324 /* publish-android.yml */,
+				1C789FD52E8BD4BC008FE324 /* publish-ios.yml */,
+				1C789FD62E8BD4BC008FE324 /* publish-latest.yml */,
+				1C789FD72E8BD4BC008FE324 /* publish-npm-alpha.yml */,
+				1C789FD82E8BD4BC008FE324 /* publish-npm-beta.yml */,
+				1C789FD92E8BD4BC008FE324 /* publish-npm-dev.yml */,
+				1C789FDA2E8BD4BC008FE324 /* publish-npm-latest.yml */,
+				1C789FDB2E8BD4BC008FE324 /* publish-npm-latest-from-pre.yml */,
+				1C789FDC2E8BD4BC008FE324 /* publish-npm-nightly.yml */,
+				1C789FDD2E8BD4BC008FE324 /* publish-npm-rc.yml */,
+			);
+			path = workflows;
+			sourceTree = "<group>";
+		};
+		1C789FE22E8BD4BC008FE324 /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FCC2E8BD4BC008FE324 /* actions */,
+				1C789FCF2E8BD4BC008FE324 /* ISSUE_TEMPLATE */,
+				1C789FDE2E8BD4BC008FE324 /* workflows */,
+				1C789FDF2E8BD4BC008FE324 /* bot.yml */,
+				1C789FE02E8BD4BC008FE324 /* cocoapods-deploy.yml */,
+				1C789FE12E8BD4BC008FE324 /* ionic-issue-bot.yml */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		1C789FE62E8BD4BC008FE324 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FE32E8BD4BC008FE324 /* definitions.ts */,
+				1C789FE42E8BD4BC008FE324 /* index.ts */,
+				1C789FE52E8BD4BC008FE324 /* web.ts */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1C789FF02E8BD4BC008FE324 /* motion */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FE62E8BD4BC008FE324 /* src */,
+				1C789FE72E8BD4BC008FE324 /* .eslintignore */,
+				1C789FE82E8BD4BC008FE324 /* .gitignore */,
+				1C789FE92E8BD4BC008FE324 /* .prettierignore */,
+				1C789FEA2E8BD4BC008FE324 /* CHANGELOG.md */,
+				1C789FEB2E8BD4BC008FE324 /* LICENSE */,
+				1C789FEC2E8BD4BC008FE324 /* package.json */,
+				1C789FED2E8BD4BC008FE324 /* README.md */,
+				1C789FEE2E8BD4BC008FE324 /* rollup.config.mjs */,
+				1C789FEF2E8BD4BC008FE324 /* tsconfig.json */,
+			);
+			path = motion;
+			sourceTree = "<group>";
+		};
+		1C789FF32E8BD4BC008FE324 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FF12E8BD4BC008FE324 /* publish-module.gradle */,
+				1C789FF22E8BD4BC008FE324 /* publish-root.gradle */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		1C789FFE2E8BD4BC008FE324 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FF42E8BD4BC008FE324 /* capacitor.mjs */,
+				1C789FF52E8BD4BC008FE324 /* cjs.mjs */,
+				1C789FF62E8BD4BC008FE324 /* cli.mjs */,
+				1C789FF72E8BD4BC008FE324 /* fn.mjs */,
+				1C789FF82E8BD4BC008FE324 /* fs.mjs */,
+				1C789FF92E8BD4BC008FE324 /* lerna.mjs */,
+				1C789FFA2E8BD4BC008FE324 /* prompts.mjs */,
+				1C789FFB2E8BD4BC008FE324 /* repo.mjs */,
+				1C789FFC2E8BD4BC008FE324 /* subprocess.mjs */,
+				1C789FFD2E8BD4BC008FE324 /* version.mjs */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		1C78A0002E8BD4BC008FE324 /* monorepo-tools */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FFF2E8BD4BC008FE324 /* android-settings-gradle-fix.mjs */,
+			);
+			path = "monorepo-tools";
+			sourceTree = "<group>";
+		};
+		1C78A0072E8BD4BC008FE324 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FF32E8BD4BC008FE324 /* android */,
+				1C789FFE2E8BD4BC008FE324 /* lib */,
+				1C78A0002E8BD4BC008FE324 /* monorepo-tools */,
+				1C78A0012E8BD4BC008FE324 /* .gitignore */,
+				1C78A0022E8BD4BC008FE324 /* apply-patches.mjs */,
+				1C78A0032E8BD4BC008FE324 /* publish-android.sh */,
+				1C78A0042E8BD4BC008FE324 /* set-capacitor-version.mjs */,
+				1C78A0052E8BD4BC008FE324 /* toggle-local.mjs */,
+				1C78A0062E8BD4BC008FE324 /* update-all.mjs */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		1C78A0232E8BD4BC008FE324 /* capacitor-plugins */ = {
+			isa = PBXGroup;
+			children = (
+				1C789FE22E8BD4BC008FE324 /* .github */,
+				1C789FF02E8BD4BC008FE324 /* motion */,
+				1C78A0072E8BD4BC008FE324 /* scripts */,
+				1C78A0082E8BD4BC008FE324 /* .gitignore */,
+				1C78A0092E8BD4BC008FE324 /* .npmrc */,
+				1C78A00A2E8BD4BC008FE324 /* action-sheet */,
+				1C78A00B2E8BD4BC008FE324 /* app */,
+				1C78A00C2E8BD4BC008FE324 /* app-launcher */,
+				1C78A00D2E8BD4BC008FE324 /* browser */,
+				1C78A00E2E8BD4BC008FE324 /* camera */,
+				1C78A00F2E8BD4BC008FE324 /* CHANGELOG.md */,
+				1C78A0102E8BD4BC008FE324 /* clipboard */,
+				1C78A0112E8BD4BC008FE324 /* CONTRIBUTING.md */,
+				1C78A0122E8BD4BC008FE324 /* device */,
+				1C78A0132E8BD4BC008FE324 /* dialog */,
+				1C78A0142E8BD4BC008FE324 /* lerna.json */,
+				1C78A0152E8BD4BC008FE324 /* local-notifications */,
+				1C78A0162E8BD4BC008FE324 /* network */,
+				1C78A0172E8BD4BC008FE324 /* nx.json */,
+				1C78A0182E8BD4BC008FE324 /* package.json */,
+				1C78A0192E8BD4BC008FE324 /* preferences */,
+				1C78A01A2E8BD4BC008FE324 /* push-notifications */,
+				1C78A01B2E8BD4BC008FE324 /* README.md */,
+				1C78A01C2E8BD4BC008FE324 /* screen-orientation */,
+				1C78A01D2E8BD4BC008FE324 /* screen-reader */,
+				1C78A01E2E8BD4BC008FE324 /* share */,
+				1C78A01F2E8BD4BC008FE324 /* splash-screen */,
+				1C78A0202E8BD4BC008FE324 /* status-bar */,
+				1C78A0212E8BD4BC008FE324 /* text-zoom */,
+				1C78A0222E8BD4BC008FE324 /* toast */,
+			);
+			path = "capacitor-plugins";
+			sourceTree = "<group>";
+		};
+		1C78A0242E8BD4BC008FE324 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				1C78A0232E8BD4BC008FE324 /* capacitor-plugins */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		CFB9A02C49AF0B5B68977947 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1C60A6602E8B11EC008A5087 /* egym-ios-mwa-reference */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C60A66C2E8B11ED008A5087 /* Build configuration list for PBXNativeTarget "egym-ios-mwa-reference" */;
+			buildPhases = (
+				1C60A65D2E8B11EC008A5087 /* Sources */,
+				1C60A65E2E8B11EC008A5087 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				1C60A6632E8B11EC008A5087 /* egym-ios-mwa-reference */,
+			);
+			name = "egym-ios-mwa-reference";
+			productName = "egym-ios-mwa-reference";
+			productReference = 1C60A6612E8B11EC008A5087 /* egym-ios-mwa-reference.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1C60A6592E8B11EC008A5087 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					1C60A6602E8B11EC008A5087 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 1C60A65C2E8B11EC008A5087 /* Build configuration list for PBXProject "egym-ios-mwa-reference" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1C60A6582E8B11EC008A5087;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1CE7E8CC2E8B3622002153C9 /* XCRemoteSwiftPackageReference "capacitor-swift-pm" */,
+				1C789F692E8BCEB6008FE324 /* XCRemoteSwiftPackageReference "ionic-portals-ios" */,
+				1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */,
+				1C78A05E2E8BD4E8008FE324 /* XCLocalSwiftPackageReference "Vendor/capacitor-plugins/preferences" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1C60A6622E8B11EC008A5087 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1C60A6602E8B11EC008A5087 /* egym-ios-mwa-reference */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C60A65D2E8B11EC008A5087 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1C60A66A2E8B11ED008A5087 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QPC5HS6Q85;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1C60A66B2E8B11ED008A5087 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QPC5HS6Q85;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1C60A66D2E8B11ED008A5087 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QPC5HS6Q85;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexkolomiytsev.egym-ios-mwa-reference";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1C60A66E2E8B11ED008A5087 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QPC5HS6Q85;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexkolomiytsev.egym-ios-mwa-reference";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C60A65C2E8B11EC008A5087 /* Build configuration list for PBXProject "egym-ios-mwa-reference" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C60A66A2E8B11ED008A5087 /* Debug */,
+				1C60A66B2E8B11ED008A5087 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C60A66C2E8B11ED008A5087 /* Build configuration list for PBXNativeTarget "egym-ios-mwa-reference" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C60A66D2E8B11ED008A5087 /* Debug */,
+				1C60A66E2E8B11ED008A5087 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		1C78A05E2E8BD4E8008FE324 /* XCLocalSwiftPackageReference "Vendor/capacitor-plugins/preferences" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "Vendor/capacitor-plugins/preferences";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C789F692E8BCEB6008FE324 /* XCRemoteSwiftPackageReference "ionic-portals-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ionic-team/ionic-portals-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.0;
+			};
+		};
+		1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ionic-team/ionic-live-updates-releases";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.7;
+			};
+		};
+		1CE7E8CC2E8B3622002153C9 /* XCRemoteSwiftPackageReference "capacitor-swift-pm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ionic-team/capacitor-swift-pm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C789F6A2E8BCEB6008FE324 /* IonicPortals */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C789F692E8BCEB6008FE324 /* XCRemoteSwiftPackageReference "ionic-portals-ios" */;
+			productName = IonicPortals;
+		};
+		1C789F6D2E8BCECD008FE324 /* IonicLiveUpdates */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */;
+			productName = IonicLiveUpdates;
+		};
+		1C789F6F2E8BCEDD008FE324 /* Capacitor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CE7E8CC2E8B3622002153C9 /* XCRemoteSwiftPackageReference "capacitor-swift-pm" */;
+			productName = Capacitor;
+		};
+		1C789F712E8BCEDD008FE324 /* Cordova */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CE7E8CC2E8B3622002153C9 /* XCRemoteSwiftPackageReference "capacitor-swift-pm" */;
+			productName = Cordova;
+		};
+		1C78A05F2E8BD4E8008FE324 /* CapacitorPreferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CapacitorPreferences;
+		};
+		1C78A0682E8BD9CC008FE324 /* CapacitorPreferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CapacitorPreferences;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1C60A6592E8B11EC008A5087 /* Project object */;
+}

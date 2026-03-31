@@ -1,13 +1,19 @@
 import SwiftUI
 import IonicPortals
 import IonicLiveUpdates
+import CapacitorNFCPassWalletPlugin
 import PreferencesPlugin
 
 typealias JSONObject = [String: Any]
 
+#if DEBUG
+let IS_WEB_DEBUGGABLE = true
+#else
+let IS_WEB_DEBUGGABLE = false
+#endif
+
 struct ContentView: View {
   #if canImport(IonicPortals)
-
     
   private static let egymWorkoutsPortal = Portal(
     name: "egym-workouts",
@@ -25,13 +31,13 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self)],
+    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
     liveUpdateConfig: LiveUpdate(
       appId: "851e0894",
-      channel: "sportcitydevelop",
+      channel: "reference",
       syncOnAdd: true
     ),
-  );
+  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
     
   private static let egymBioagePortal = Portal(
     name: "egym-bioage",
@@ -49,17 +55,42 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self)],
+    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
     liveUpdateConfig: LiveUpdate(
       appId: "068a3720",
-      channel: "sportcitydevelop",
+      channel: "reference",
       syncOnAdd: true
     ),
-  )
+  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+
+  private static let egymNfcPortal = Portal(
+    name: "egym-nfc",
+    startDir: "portals/webdir",
+    initialContext: [
+        "startingRoute": "/nfc/home",
+        "email": "email@example.com",
+        "firstName": "Oleksandr",
+        "lastName": "Usyk",
+        "dateOfBirth": "1990-01-01",
+        "gymLocation": "DE01",
+        "language": "de-DE",
+        "measurementSystem": "METRIC",
+        "gender": "MALE",
+//          "memberId": "jwt", // unique member id signed in JWT
+        "cardNumber": "000123123123" // 12 digit number with leading zeros
+      ],
+    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    liveUpdateConfig: LiveUpdate(
+      appId: "dcbe378a",
+      channel: "reference",
+      syncOnAdd: true
+    ),
+  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
   #endif
 
   @State private var showWorkoutsWebApp = false
   @State private var showBioageWebApp = false
+  @State private var showNfcWebApp = false
   @State private var dismissListener: Task<Void, Never>?
 
   var body: some View {
@@ -118,6 +149,30 @@ struct ContentView: View {
                       }
                   }
               }
+      }
+
+      Button("NFC MWA") { showNfcWebApp = true }
+      .fullScreenCover(isPresented: $showNfcWebApp, onDismiss: {
+          // cleanup when modal goes away
+          dismissListener?.cancel()
+          dismissListener = nil
+      }) {
+          PortalView(portal: Self.egymNfcPortal)
+            .onAppear {
+              dismissListener?.cancel()
+              dismissListener = Task {
+                  for await event in PortalsPubSub.subscribe(to: "subscription") {
+                      struct ClosePayload: Decodable { let type: String? }
+                      if let decoded = try? event.decodeData(as: ClosePayload.self) {
+                          print("Decoded reason:", decoded.type ?? "n/a")
+                          
+                          if decoded.type == "dismiss" {
+                              await MainActor.run { showNfcWebApp = false }
+                          }
+                      }
+                  }
+              }
+            }
       }
       #else
       Text("Ionic Portals not available.")

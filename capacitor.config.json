@@ -1,0 +1,9 @@
+{
+  "appId": "com.example.egym-ios-mwa-reference",
+  "appName": "egym-ios-mwa-reference",
+  "webDir": "egym-ios-mwa-reference/portals/webdir",
+  "bundledWebRuntime": false,
+  "ios": {
+    "path": "egym-ios-mwa-reference"
+  }
+}

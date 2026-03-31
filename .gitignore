@@ -1,2 +1,11 @@
 .idea
+node_modules
 Vendor/capacitor-plugins
+egym-ios-mwa-reference.xcodeproj/xcuserdata/
+egym-ios-mwa-reference.xcodeproj/project.xcworkspace/xcuserdata/
+egym-ios-mwa-reference/CapApp-SPM/
+egym-ios-mwa-reference/capacitor-cordova-ios-plugins/
+egym-ios-mwa-reference/capacitor.config.json
+egym-ios-mwa-reference/config.xml
+egym-ios-mwa-reference/public/
+.DS_Store

@@ -14,23 +14,10 @@ struct ConfigView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Client ID") {
-                    TextField("e.g. rmwabrand", text: $clientId)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-                }
-
                 Section("Gym Location ID") {
                     TextField("e.g. 999", text: $gymLocationId)
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
-                }
-
-                Section("Backend URL") {
-                    TextField("e.g. https://api.example.com", text: $beurl)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-                        .keyboardType(.URL)
                 }
 
                 Section("Member ID") {
@@ -57,6 +44,19 @@ struct ConfigView: View {
                         privateKey = ""
                     }
                     .disabled(privateKey.isEmpty)
+                }
+
+                Section("Client ID (optional)") {
+                    TextField("e.g. rmwabrand", text: $clientId)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                }
+
+                Section("Backend URL (optional)") {
+                    TextField("e.g. https://api.example.com", text: $beurl)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .keyboardType(.URL)
                 }
 
                 Section {

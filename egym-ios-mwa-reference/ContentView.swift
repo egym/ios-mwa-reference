@@ -14,83 +14,96 @@ let IS_WEB_DEBUGGABLE = false
 
 struct ContentView: View {
   #if canImport(IonicPortals)
-    
-  private static let egymWorkoutsPortal = Portal(
-    name: "egym-workouts",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/workouts/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "851e0894",
-      channel: "reference",
-      syncOnAdd: true
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
-    
-  private static let egymBioagePortal = Portal(
-    name: "egym-bioage",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/bioage/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "068a3720",
-      channel: "reference",
-      syncOnAdd: true
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
 
-  private static let egymNfcPortal = Portal(
-    name: "egym-nfc",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/nfc/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "dcbe378a",
-      channel: "reference",
-      syncOnAdd: true
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+  @AppStorage("config_clientId") private var clientId: String = ""
+  @AppStorage("config_memberId") private var memberId: String = ""
+  @AppStorage("config_privateKey") private var privateKey: String = ""
+  @AppStorage("config_beurl") private var beurl: String = ""
+  @AppStorage("config_gymLocationId") private var gymLocationId: String = ""
+  @AppStorage("config_locale") private var locale: String = "en-US"
+
+  private var memberIdJWT: String? {
+      guard !memberId.isEmpty, !privateKey.isEmpty else { return nil }
+      return try? JWTGenerator.generateMembershipJWT(memberId: memberId, privateKeyPEM: privateKey)
+  }
+
+  private func makeContext(startingRoute: String) -> [String: String] {
+      var ctx: [String: String] = [
+          "startingRoute": startingRoute,
+          "email": "email@example.com",
+          "firstName": "Oleksandr",
+          "lastName": "Usyk",
+          "dateOfBirth": "1990-01-01",
+          "gymLocation": "DE01",
+          "language": locale,
+          "measurementSystem": "METRIC",
+          "gender": "MALE",
+          "cardNumber": "000123123123",
+          "showLogger": "true"
+      ]
+      if !clientId.isEmpty {
+          ctx["clientId"] = clientId
+      }
+      if !gymLocationId.isEmpty {
+          ctx["gymLocation"] = gymLocationId
+      }
+      if let jwt = memberIdJWT {
+          ctx["memberId"] = jwt
+      }
+      if !beurl.isEmpty {
+          ctx["url"] = beurl
+      }
+      print("[Portal Context] \(startingRoute): \(ctx)")
+      return ctx
+  }
+
+  private func workoutsPortal() -> Portal {
+      Portal(
+          name: "egym-workouts",
+          startDir: "portals/webdir",
+          initialContext: makeContext(startingRoute: "/workouts/home"),
+          plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+          liveUpdateConfig: LiveUpdate(
+              appId: "851e0894",
+              channel: "reference",
+              syncOnAdd: true
+          )
+      ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+  }
+
+  private func bioagePortal() -> Portal {
+      Portal(
+          name: "egym-bioage",
+          startDir: "portals/webdir",
+          initialContext: makeContext(startingRoute: "/bioage/home"),
+          plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+          liveUpdateConfig: LiveUpdate(
+              appId: "068a3720",
+              channel: "reference",
+              syncOnAdd: true
+          )
+      ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+  }
+
+  private func nfcPortal() -> Portal {
+      Portal(
+          name: "egym-nfc",
+          startDir: "portals/webdir",
+          initialContext: makeContext(startingRoute: "/nfc/home"),
+          plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+          liveUpdateConfig: LiveUpdate(
+              appId: "dcbe378a",
+              channel: "egymdevelop",
+              syncOnAdd: true
+          )
+      ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+  }
   #endif
 
   @State private var showWorkoutsWebApp = false
   @State private var showBioageWebApp = false
   @State private var showNfcWebApp = false
+  @State private var showConfig = false
   @State private var dismissListener: Task<Void, Never>?
 
   var body: some View {
@@ -101,13 +114,18 @@ struct ContentView: View {
       Text("Hello, world!")
 
       #if canImport(IonicPortals)
+      Button("⚙️ JWT Config") { showConfig = true }
+        .sheet(isPresented: $showConfig) {
+            ConfigView()
+        }
+
       Button("Workouts MWA") { showWorkoutsWebApp = true }
         .fullScreenCover(isPresented: $showWorkoutsWebApp, onDismiss: {
             // cleanup when modal goes away
             dismissListener?.cancel()
             dismissListener = nil
         }) {
-            PortalView(portal: Self.egymWorkoutsPortal)
+            PortalView(portal: workoutsPortal())
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -132,7 +150,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: Self.egymBioagePortal)
+          PortalView(portal: bioagePortal())
               .onAppear {
                   dismissListener?.cancel()
                   dismissListener = Task {
@@ -157,7 +175,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: Self.egymNfcPortal)
+          PortalView(portal: nfcPortal())
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {

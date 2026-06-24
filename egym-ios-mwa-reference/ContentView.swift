@@ -20,6 +20,7 @@ struct ContentView: View {
   @AppStorage("config_privateKey") private var privateKey: String = ""
   @AppStorage("config_beurl") private var beurl: String = ""
   @AppStorage("config_gymLocationId") private var gymLocationId: String = ""
+  @AppStorage("config_locale") private var locale: String = "en-US"
 
   private var memberIdJWT: String? {
       guard !memberId.isEmpty, !privateKey.isEmpty else { return nil }
@@ -34,7 +35,7 @@ struct ContentView: View {
           "lastName": "Usyk",
           "dateOfBirth": "1990-01-01",
           "gymLocation": "DE01",
-          "language": "de-DE",
+          "language": locale,
           "measurementSystem": "METRIC",
           "gender": "MALE",
           "cardNumber": "000123123123",
@@ -92,7 +93,7 @@ struct ContentView: View {
           plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
           liveUpdateConfig: LiveUpdate(
               appId: "dcbe378a",
-              channel: "reference",
+              channel: "egymdevelop",
               syncOnAdd: true
           )
       ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)

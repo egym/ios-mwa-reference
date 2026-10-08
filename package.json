@@ -4,7 +4,7 @@
   "dependencies": {
     "@capacitor/cli": "^7.6.1",
     "@capacitor/core": "^8.3.0",
-    "@capacitor/ios": "^8.3.0",
+    "@capacitor/ios": "^8.5.2",
     "@egym/capacitor-nfc-pass-wallet": "^0.3.0"
   }
 }

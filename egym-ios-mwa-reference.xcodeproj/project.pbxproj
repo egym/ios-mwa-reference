@@ -13,6 +13,7 @@
 		1C789F722E8BCEDD008FE324 /* Cordova in Frameworks */ = {isa = PBXBuildFile; productRef = 1C789F712E8BCEDD008FE324 /* Cordova */; };
 		1C78A0602E8BD4E8008FE324 /* CapacitorPreferences in Frameworks */ = {isa = PBXBuildFile; productRef = 1C78A05F2E8BD4E8008FE324 /* CapacitorPreferences */; };
 		1C78A0692E8BD9CC008FE324 /* CapacitorPreferences in Frameworks */ = {isa = PBXBuildFile; productRef = 1C78A0682E8BD9CC008FE324 /* CapacitorPreferences */; };
+		1C7A76702E8C0A01008FE324 /* EgymCapacitorNfcPassWallet in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7A76722E8C0A01008FE324 /* EgymCapacitorNfcPassWallet */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 				1C78A0602E8BD4E8008FE324 /* CapacitorPreferences in Frameworks */,
 				1C789F6B2E8BCEB6008FE324 /* IonicPortals in Frameworks */,
 				1C789F702E8BCEDD008FE324 /* Capacitor in Frameworks */,
+				1C7A76702E8C0A01008FE324 /* EgymCapacitorNfcPassWallet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +383,7 @@
 				1C789F692E8BCEB6008FE324 /* XCRemoteSwiftPackageReference "ionic-portals-ios" */,
 				1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */,
 				1C78A05E2E8BD4E8008FE324 /* XCLocalSwiftPackageReference "Vendor/capacitor-plugins/preferences" */,
+				1C7A76712E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-nfc-pass-wallet" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1C60A6622E8B11EC008A5087 /* Products */;
@@ -618,6 +621,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "Vendor/capacitor-plugins/preferences";
 		};
+		1C7A76712E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-nfc-pass-wallet" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "node_modules/@egym/capacitor-nfc-pass-wallet";
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -625,8 +632,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ionic-team/ionic-portals-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.12.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.13.2;
 			};
 		};
 		1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */ = {
@@ -642,7 +649,7 @@
 			repositoryURL = "https://github.com/ionic-team/capacitor-swift-pm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				minimumVersion = 8.5.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -675,6 +682,11 @@
 		1C78A0682E8BD9CC008FE324 /* CapacitorPreferences */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CapacitorPreferences;
+		};
+		1C7A76722E8C0A01008FE324 /* EgymCapacitorNfcPassWallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7A76712E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-nfc-pass-wallet" */;
+			productName = EgymCapacitorNfcPassWallet;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

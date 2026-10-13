@@ -649,7 +649,7 @@
 			repositoryURL = "https://github.com/ionic-team/capacitor-swift-pm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				minimumVersion = 8.5.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

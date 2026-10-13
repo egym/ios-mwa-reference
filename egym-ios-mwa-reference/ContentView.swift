@@ -1,6 +1,7 @@
 import SwiftUI
 import IonicPortals
 import IonicLiveUpdates
+import Capacitor
 import CapacitorNFCPassWalletPlugin
 import PreferencesPlugin
 

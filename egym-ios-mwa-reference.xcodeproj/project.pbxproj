@@ -632,8 +632,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ionic-team/ionic-portals-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.12.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.13.2;
 			};
 		};
 		1C789F6C2E8BCECD008FE324 /* XCRemoteSwiftPackageReference "ionic-live-updates-releases" */ = {

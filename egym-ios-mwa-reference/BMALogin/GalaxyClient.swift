@@ -2,7 +2,7 @@ import Foundation
 
 /// Logs in at Galaxy and fetches the member's MWA token, the way the BMA apps get it.
 final class GalaxyClient {
-    struct Exerciser: Decodable {
+    struct Exerciser {
         let uuid: String
         let homeClubUuid: String
         let email: String
@@ -10,13 +10,23 @@ final class GalaxyClient {
 
     enum Failure: LocalizedError {
         case httpStatus(Int, cause: String?)
+        case missingField(String)
 
         var errorDescription: String? {
             switch self {
             case .httpStatus(let status, let cause):
                 cause.map { "Galaxy answered with HTTP \(status) (\($0))." } ?? "Galaxy answered with HTTP \(status)."
+            case .missingField(let field):
+                "Galaxy answered without \(field)."
             }
         }
+    }
+
+    // The member login answer can lack email; the BMA apps take the typed login instead.
+    private struct LoginAnswer: Decodable {
+        let uuid: String
+        let homeClubUuid: String
+        let email: String?
     }
 
     private struct MWAToken: Decodable {
@@ -48,7 +58,8 @@ final class GalaxyClient {
             forHTTPHeaderField: "X-NP-User-Agent"
         )
         request.httpBody = Self.formBody(["username": email, "password": password])
-        return try await send(request)
+        let answer: LoginAnswer = try await send(request)
+        return Exerciser(uuid: answer.uuid, homeClubUuid: answer.homeClubUuid, email: answer.email ?? email)
     }
 
     func fetchMWAToken(exerciserUuid: String) async throws -> String {
@@ -63,7 +74,13 @@ final class GalaxyClient {
         guard (200..<300).contains(status) else {
             throw Failure.httpStatus(status, cause: (try? JSONDecoder().decode(ErrorBody.self, from: data))?.cause)
         }
-        return try JSONDecoder().decode(Response.self, from: data)
+        do {
+            return try JSONDecoder().decode(Response.self, from: data)
+        } catch DecodingError.keyNotFound(let key, _) {
+            throw Failure.missingField(key.stringValue)
+        } catch DecodingError.valueNotFound(_, let context) {
+            throw Failure.missingField(context.codingPath.map(\.stringValue).joined(separator: "."))
+        }
     }
 
     private static func formBody(_ fields: KeyValuePairs<String, String>) -> Data {

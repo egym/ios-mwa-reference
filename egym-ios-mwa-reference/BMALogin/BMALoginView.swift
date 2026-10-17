@@ -113,6 +113,10 @@ struct BMALoginView: View {
             do {
                 let token = try await session.galaxy.fetchMWAToken(exerciserUuid: session.exerciserUuid)
                 PortalsPubSub.publish(token, to: "authToken")
+            } catch GalaxyClient.Failure.httpStatus(let status) where status == 401 || status == 403 {
+                errorMessage = "The Galaxy session has ended. Log in again."
+                self.session = nil
+                return
             } catch {
                 print("Could not renew the MWA token:", error.localizedDescription)
             }

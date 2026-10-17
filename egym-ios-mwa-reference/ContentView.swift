@@ -93,6 +93,9 @@ struct ContentView: View {
   @State private var showBioageWebApp = false
   @State private var showNfcWebApp = false
   @State private var dismissListener: Task<Void, Never>?
+  #if DEBUG
+  @State private var showPluginTest = false
+  #endif
 
   var body: some View {
     VStack(spacing: 16) {
@@ -178,6 +181,16 @@ struct ContentView: View {
               }
             }
       }
+
+      #if DEBUG
+      Button("Plugin test") { showPluginTest = true }
+        .fullScreenCover(isPresented: $showPluginTest) {
+          PluginTestView(
+            workoutsPortal: workoutsPortal ?? Self.egymWorkoutsPortal,
+            nfcChannel: (nfcPortal ?? Self.egymNfcPortal).liveUpdateConfig?.channel ?? "reference"
+          )
+        }
+      #endif
       #else
       Text("Ionic Portals not available.")
         .font(.footnote)

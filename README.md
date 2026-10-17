@@ -12,7 +12,7 @@
 
 Run `npm ci` again after any change to `package.json` or `package-lock.json`, for example after you pull a Dependabot update. The NFC plugin's Swift code comes from `node_modules`, so Xcode builds whatever version is installed there.
 
-On a fresh install, the first open of each Portal stays empty while its live update downloads. Restart the app and open the Portal again.
+Before each open the app syncs the MWA's live update, as the BMA apps do, so the first open on a fresh install is not empty: a loading view shows until the newest build is on the device (`LiveUpdatePortalView.swift`). The sync waits at most 30 seconds. After that, or when the sync fails, the app opens a build downloaded earlier, and with none it shows "Try again" and "Close".
 
 ### Log in as a BMA user (optional, EGYM internal)
 

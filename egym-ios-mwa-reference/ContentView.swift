@@ -109,6 +109,7 @@ struct ContentView: View {
             dismissListener = nil
         }) {
             PortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal)
+                .ignoresSafeArea()
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -134,6 +135,7 @@ struct ContentView: View {
           dismissListener = nil
       }) {
           PortalView(portal: Self.egymBioagePortal)
+              .ignoresSafeArea()
               .onAppear {
                   dismissListener?.cancel()
                   dismissListener = Task {
@@ -159,6 +161,7 @@ struct ContentView: View {
           dismissListener = nil
       }) {
           PortalView(portal: nfcPortal ?? Self.egymNfcPortal)
+              .ignoresSafeArea()
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {

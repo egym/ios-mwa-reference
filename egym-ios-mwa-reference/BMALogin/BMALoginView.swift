@@ -117,7 +117,7 @@ struct BMALoginView: View {
                 "linking": ["status": "linked", "egymEmail": exerciser.email] as JSObject,
             ],
             plugins: EgymMwa.portalPlugins,
-            liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: true)
+            liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: false)
         ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
     }
 

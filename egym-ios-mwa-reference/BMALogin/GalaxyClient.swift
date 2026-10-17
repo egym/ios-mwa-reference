@@ -32,14 +32,17 @@ final class GalaxyClient {
     }
 
     func logIn(email: String, password: String) async throws -> Exerciser {
-        var request = URLRequest(url: baseURL.appending(path: "np/login"))
+        // The member login of the BMA apps; /np/login with club_portal is the staff login and refuses members.
+        var request = URLRequest(url: baseURL.appending(path: "np/exerciser/login"))
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded;charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("1.5", forHTTPHeaderField: "X-NP-API-Version")
         request.setValue(
-            "clientType=MOBILE_DEVICE; devicePlatform=IOS; deviceUid=\(deviceUid); applicationName=Team; applicationVersion=3.64; applicationVersionCode=501;",
+            "clientType=MOBILE_DEVICE; devicePlatform=IOS; deviceUid=\(deviceUid); applicationName=RevGen; applicationVersion=100.0; applicationVersionCode=8598;",
             forHTTPHeaderField: "X-NP-User-Agent"
         )
-        request.httpBody = Self.formBody(["username": email, "password": password, "club_portal": "true"])
+        request.httpBody = Self.formBody(["username": email, "password": password])
         return try await send(request)
     }
 

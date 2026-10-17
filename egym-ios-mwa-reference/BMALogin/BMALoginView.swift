@@ -37,6 +37,8 @@ struct BMALoginView: View {
                             .autocorrectionDisabled()
                         SecureField("Password", text: $password)
                             .textContentType(.password)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
                     }
                     Section {
                         Button {

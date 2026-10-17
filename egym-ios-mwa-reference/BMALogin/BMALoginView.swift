@@ -18,6 +18,7 @@ struct BMALoginView: View {
 
     @State private var email = ""
     @State private var password = ""
+    @State private var isPasswordVisible = false
     @State private var isLoggingIn = false
     @State private var errorMessage: String?
     @State private var session: Session?
@@ -35,10 +36,25 @@ struct BMALoginView: View {
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
-                        SecureField("Password", text: $password)
+                        HStack {
+                            Group {
+                                if isPasswordVisible {
+                                    TextField("Password", text: $password)
+                                } else {
+                                    SecureField("Password", text: $password)
+                                }
+                            }
                             .textContentType(.password)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
+                            Button {
+                                isPasswordVisible.toggle()
+                            } label: {
+                                Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
+                            }
+                            .buttonStyle(.borderless)
+                            .accessibilityLabel(isPasswordVisible ? "Hide password" : "Show password")
+                        }
                     }
                     Section {
                         Button {

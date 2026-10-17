@@ -8,8 +8,14 @@ import PreferencesPlugin
 /// The "auth as BMA user" screen. After the login, Workouts and NFC open as this member.
 struct BMALoginView: View {
     private struct Session {
+        let galaxy: GalaxyClient
+        let exerciserUuid: String
         let workoutsPortal: Portal
         let nfcPortal: Portal
+    }
+
+    private struct HostRequest: Decodable {
+        let type: String
     }
 
     let config: BMALoginConfig
@@ -23,6 +29,7 @@ struct BMALoginView: View {
     var body: some View {
         if let session {
             ContentView(workoutsPortal: session.workoutsPortal, nfcPortal: session.nfcPortal)
+                .task { await answerAuthTokenRequests(in: session) }
         } else {
             NavigationStack {
                 Form {
@@ -69,6 +76,8 @@ struct BMALoginView: View {
             let token = try await galaxy.fetchMWAToken(exerciserUuid: exerciser.uuid)
             password = ""
             session = Session(
+                galaxy: galaxy,
+                exerciserUuid: exerciser.uuid,
                 workoutsPortal: makePortal(name: "egym-workouts", appId: "851e0894", startingRoute: "/workouts/home", exerciser: exerciser, token: token),
                 nfcPortal: makePortal(name: "egym-nfc", appId: "dcbe378a", startingRoute: "/nfc/home", exerciser: exerciser, token: token)
             )
@@ -96,5 +105,17 @@ struct BMALoginView: View {
             plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
             liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: true)
         ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+    }
+
+    private func answerAuthTokenRequests(in session: Session) async {
+        for await event in PortalsPubSub.subscribe(to: "subscription") {
+            guard (try? event.decodeData(as: HostRequest.self))?.type == "authToken" else { continue }
+            do {
+                let token = try await session.galaxy.fetchMWAToken(exerciserUuid: session.exerciserUuid)
+                PortalsPubSub.publish(token, to: "authToken")
+            } catch {
+                print("Could not renew the MWA token:", error.localizedDescription)
+            }
+        }
     }
 }

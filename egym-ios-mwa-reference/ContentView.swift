@@ -1,9 +1,5 @@
 import SwiftUI
-import IonicPortals
-import IonicLiveUpdates
-import Capacitor
-import CapacitorNFCPassWalletPlugin
-import PreferencesPlugin
+import EgymMwaNavigationPlugin
 
 typealias JSONObject = [String: Any]
 
@@ -32,7 +28,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "851e0894",
       channel: "reference",
@@ -56,7 +52,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "068a3720",
       channel: "reference",
@@ -80,7 +76,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "dcbe378a",
       channel: "reference",
@@ -97,6 +93,9 @@ struct ContentView: View {
   @State private var showBioageWebApp = false
   @State private var showNfcWebApp = false
   @State private var dismissListener: Task<Void, Never>?
+  #if DEBUG
+  @State private var showPluginTest = false
+  #endif
 
   var body: some View {
     VStack(spacing: 16) {
@@ -113,6 +112,7 @@ struct ContentView: View {
             dismissListener = nil
         }) {
             LiveUpdatePortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal) { showWorkoutsWebApp = false }
+                .ignoresSafeArea()
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -138,6 +138,7 @@ struct ContentView: View {
           dismissListener = nil
       }) {
           LiveUpdatePortalView(portal: Self.egymBioagePortal) { showBioageWebApp = false }
+              .ignoresSafeArea()
               .onAppear {
                   dismissListener?.cancel()
                   dismissListener = Task {
@@ -163,6 +164,7 @@ struct ContentView: View {
           dismissListener = nil
       }) {
           LiveUpdatePortalView(portal: nfcPortal ?? Self.egymNfcPortal) { showNfcWebApp = false }
+              .ignoresSafeArea()
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {
@@ -179,6 +181,16 @@ struct ContentView: View {
               }
             }
       }
+
+      #if DEBUG
+      Button("Plugin test") { showPluginTest = true }
+        .fullScreenCover(isPresented: $showPluginTest) {
+          PluginTestView(
+            workoutsPortal: workoutsPortal ?? Self.egymWorkoutsPortal,
+            nfcChannel: (nfcPortal ?? Self.egymNfcPortal).liveUpdateConfig?.channel ?? "reference"
+          )
+        }
+      #endif
       #else
       Text("Ionic Portals not available.")
         .font(.footnote)

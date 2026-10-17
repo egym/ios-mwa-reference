@@ -1,16 +1,20 @@
 ### Build from a fresh clone
 
-1. Install the npm packages. The NFC plugin's Swift package is linked from `node_modules`:
+On this branch, Ionic Portals, Live Updates, Capacitor and the Capacitor plugins come from one EGYM package, `@egym/capacitor-mwa-navigation`, the proof of concept of BMACG-751. The package is not published yet, so npm installs it from a local folder.
+
+1. Install the package's own npm packages in its folder:
+   ```bash
+   cd <path to lib-capacitor-mwa-navigation>
+   npm install
+   ```
+2. Install the npm packages here:
    ```bash
    npm ci
    ```
-2. Clone the official Capacitor plugins into `Vendor/` (the Preferences plugin is linked from there):
-   ```bash
-   git clone --depth 1 --branch "@capacitor/preferences@8.0.1" https://github.com/ionic-team/capacitor-plugins.git Vendor/capacitor-plugins
-   ```
-3. Open `egym-ios-mwa-reference.xcodeproj` in Xcode and run the app on a simulator.
+   `package.json` points at the package by the relative path `../../libs/lib-capacitor-mwa-navigation`. If your checkout sits elsewhere, run `npm install <path to lib-capacitor-mwa-navigation>` instead, and do not commit the changed path.
+3. Open `egym-ios-mwa-reference.xcodeproj` in Xcode and run the app on a simulator. Xcode links the package as a local Swift package from `node_modules/@egym/capacitor-mwa-navigation`.
 
-Run `npm ci` again after any change to `package.json` or `package-lock.json`, for example after you pull a Dependabot update. The NFC plugin's Swift code comes from `node_modules`, so Xcode builds whatever version is installed there.
+Run `npm ci` again after any change to `package.json` or `package-lock.json`. The package's Swift code comes from `node_modules`, so Xcode builds whatever version is installed there.
 
 Before each open the app syncs the MWA's live update, as the BMA apps do, so the first open on a fresh install is not empty: a loading view shows until the newest build is on the device (`LiveUpdatePortalView.swift`). The sync waits at most 30 seconds. After that, or when the sync fails, the app opens a build downloaded earlier, and with none it shows "Try again" and "Close".
 
@@ -32,13 +36,20 @@ The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and pas
 
 `BMALogin.json` is git-ignored and holds no password or token. Never commit it. Without it, the app starts with no login screen, exactly as before.
 
+### Open one MWA from another (proof of concept)
+
+- Every Portal registers `EgymMwa.portalPlugins`: the `EgymMwaNavigation` plugin and the nine Capacitor plugins that the package carries (Preferences, App, Haptics, Keyboard, Status Bar, Browser, Device, SQLite and the EGYM NFC wallet plugin).
+- An MWA calls `EgymMwaNavigation.open` to open the NFC MWA full screen, and the plugin closes it again when NFC sends `dismiss`. The host has no code for this.
+- The Portals run edge to edge. With the carried Status Bar plugin, the MWAs pad the safe area themselves, so a Portal inside the safe area would get the padding twice.
+- Debug builds show a "Plugin test" button. It opens Workouts with buttons that call `open` from the Workouts WebView (open NFC, two quick calls, another app id) and lists each result. Release builds leave it out.
+
 ### Install capacitor plugins
 
 Capacitor plugins can be installed using two methods. This repository natively supports both approaches.
 
 #### Option 1: NPM package linked as a local Swift package
 
-This is how the repo links `@egym/capacitor-nfc-pass-wallet`. To add a new plugin via NPM:
+This is how the repo links `@egym/capacitor-mwa-navigation`, which brings the nine plugins above. To add another plugin via NPM:
 
 1. Install the plugin from NPM:
    ```bash
@@ -50,7 +61,7 @@ This is how the repo links `@egym/capacitor-nfc-pass-wallet`. To add a new plugi
 
 #### Option 2: Git Submodules & Manual Wiring
 
-If you prefer to vendor native dependencies, you can wire plugins manually using Git Submodules and Xcode's SPM integration. The repo uses this manual approach for the `@capacitor/preferences` plugin as a working example.
+If you prefer to vendor native dependencies, you can wire plugins manually using Git Submodules and Xcode's SPM integration.
 
 1. Vendor the plugin's repository as a Git Submodule:
    ```bash
@@ -67,9 +78,7 @@ If you prefer to vendor native dependencies, you can wire plugins manually using
 Regardless of the installation method, you must register the native plugin in your Portal initialization code. See `ContentView.swift` for an example:
 
 ```swift
-import PreferencesPlugin
-import CapacitorNFCPassWalletPlugin
+import EgymMwaNavigationPlugin
 ...
-plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-
+plugins: EgymMwa.portalPlugins + [.type(MyOtherPlugin.self)],
 ```

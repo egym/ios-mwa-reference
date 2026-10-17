@@ -1,4 +1,5 @@
 import SwiftUI
+import Capacitor
 import IonicPortals
 import IonicLiveUpdates
 
@@ -6,6 +7,7 @@ import IonicLiveUpdates
 /// Before every open it syncs the live update for at most 30 seconds, as the BMA apps do.
 struct LiveUpdatePortalView: View {
     let portal: Portal
+    var onBridgeAvailable: (CapacitorBridge) -> Void = { _ in }
     let onClose: () -> Void
 
     private enum Phase {
@@ -18,7 +20,7 @@ struct LiveUpdatePortalView: View {
     var body: some View {
         switch phase {
         case .ready:
-            PortalView(portal: portal)
+            PortalView(portal: portal, onBridgeAvailable: onBridgeAvailable)
         case .loading:
             VStack(spacing: 16) {
                 ProgressView()

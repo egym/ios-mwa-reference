@@ -21,9 +21,11 @@ struct PluginTestView: View {
     @State private var results: [String] = []
 
     var body: some View {
-        PortalView(portal: workoutsPortal) { bridge in
-            Task { webView = bridge.webView }
-        }
+        LiveUpdatePortalView(
+            portal: workoutsPortal,
+            onBridgeAvailable: { bridge in Task { webView = bridge.webView } },
+            onClose: { dismiss() }
+        )
             .ignoresSafeArea()
             .overlay(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -37,6 +39,7 @@ struct PluginTestView: View {
                         Button("Other app") { open(appId: "068a3720") }
                     }
                     .buttonStyle(.borderedProminent)
+                    .disabled(webView == nil)
                     ForEach(results.indices, id: \.self) { index in
                         Text(results[index]).font(.caption.monospaced())
                     }

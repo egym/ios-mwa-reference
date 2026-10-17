@@ -1,9 +1,5 @@
 import SwiftUI
-import IonicPortals
-import IonicLiveUpdates
-import Capacitor
-import CapacitorNFCPassWalletPlugin
-import PreferencesPlugin
+import EgymMwaNavigationPlugin
 
 /// The "auth as BMA user" screen. After the login, Workouts and NFC open as this member.
 struct BMALoginView: View {
@@ -102,7 +98,7 @@ struct BMALoginView: View {
                 "preferences": JSObject(),
                 "linking": ["status": "linked", "egymEmail": exerciser.email] as JSObject,
             ],
-            plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+            plugins: EgymMwa.portalPlugins,
             liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: true)
         ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
     }

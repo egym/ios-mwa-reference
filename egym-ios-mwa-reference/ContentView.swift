@@ -1,9 +1,5 @@
 import SwiftUI
-import IonicPortals
-import IonicLiveUpdates
-import Capacitor
-import CapacitorNFCPassWalletPlugin
-import PreferencesPlugin
+import EgymMwaNavigationPlugin
 
 typealias JSONObject = [String: Any]
 
@@ -32,7 +28,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "851e0894",
       channel: "reference",
@@ -56,7 +52,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "068a3720",
       channel: "reference",
@@ -80,7 +76,7 @@ struct ContentView: View {
 //          "memberId": "jwt", // unique member id signed in JWT
         "cardNumber": "000123123123" // 12 digit number with leading zeros
       ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
+    plugins: EgymMwa.portalPlugins,
     liveUpdateConfig: LiveUpdate(
       appId: "dcbe378a",
       channel: "reference",

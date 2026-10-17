@@ -87,6 +87,9 @@ struct ContentView: View {
       syncOnAdd: true
     ),
   ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+
+  var workoutsPortal = Self.egymWorkoutsPortal
+  var nfcPortal = Self.egymNfcPortal
   #endif
 
   @State private var showWorkoutsWebApp = false
@@ -108,7 +111,7 @@ struct ContentView: View {
             dismissListener?.cancel()
             dismissListener = nil
         }) {
-            PortalView(portal: Self.egymWorkoutsPortal)
+            PortalView(portal: workoutsPortal)
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -158,7 +161,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: Self.egymNfcPortal)
+          PortalView(portal: nfcPortal)
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {

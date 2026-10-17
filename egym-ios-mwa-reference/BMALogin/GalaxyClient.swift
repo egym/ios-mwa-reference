@@ -9,17 +9,22 @@ final class GalaxyClient {
     }
 
     enum Failure: LocalizedError {
-        case httpStatus(Int)
+        case httpStatus(Int, cause: String?)
 
         var errorDescription: String? {
             switch self {
-            case .httpStatus(let status): "Galaxy answered with HTTP \(status)."
+            case .httpStatus(let status, let cause):
+                cause.map { "Galaxy answered with HTTP \(status) (\($0))." } ?? "Galaxy answered with HTTP \(status)."
             }
         }
     }
 
     private struct MWAToken: Decodable {
         let accessToken: String
+    }
+
+    private struct ErrorBody: Decodable {
+        let cause: String?
     }
 
     private let baseURL: URL
@@ -56,7 +61,7 @@ final class GalaxyClient {
         let (data, response) = try await session.data(for: request)
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
         guard (200..<300).contains(status) else {
-            throw Failure.httpStatus(status)
+            throw Failure.httpStatus(status, cause: (try? JSONDecoder().decode(ErrorBody.self, from: data))?.cause)
         }
         return try JSONDecoder().decode(Response.self, from: data)
     }

@@ -16,7 +16,7 @@ On this branch, Ionic Portals, Live Updates, Capacitor and the Capacitor plugins
 
 Run `npm ci` again after any change to `package.json` or `package-lock.json`. The package's Swift code comes from `node_modules`, so Xcode builds whatever version is installed there.
 
-Before each open the app syncs the MWA's live update, as the BMA apps do, so the first open on a fresh install is not empty: a loading view shows until the newest build is on the device (`LiveUpdatePortalView.swift`). The sync waits at most 30 seconds. After that, or when the sync fails, the app opens a build downloaded earlier, and with none it shows "Try again" and "Close".
+Each MWA button calls `EgymMwa.open` from the package (`ContentView.swift`). The package shows the MWA full screen and closes it on `dismiss`. Before each open it syncs the MWA's live update, as the BMA apps do, so the first open on a fresh install is not empty: a loading view shows until the newest build is on the device. The sync waits at most 30 seconds. After that, or when the sync fails, the package opens a build downloaded earlier, and with none it shows "Try again" and "Close".
 
 ### Log in as a BMA user (optional, EGYM internal)
 
@@ -32,16 +32,16 @@ By default the app opens the MWAs with a sample context and no login. To run Wor
    - `liveUpdateChannel`: the Appflow channel that Workouts and NFC load from.
 3. Run the app and log in with the member's email and password.
 
-The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and passes it as `authToken` in the initial context of Workouts and NFC, as the BMA apps do. When an MWA asks for a new token, the app gets a fresh one from Galaxy. Bioage keeps the sample context and the `reference` channel.
+The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and passes it as `authToken` in the initial context of Workouts and NFC, as the BMA apps do. When an MWA asks for a new token, the app gets a fresh one from Galaxy and publishes it on the shared Portals channel, and the package passes it on to the MWA. Bioage keeps the sample context and the `reference` channel.
 
 `BMALogin.json` is git-ignored and holds no password or token. Never commit it. Without it, the app starts with no login screen, exactly as before.
 
 ### Open one MWA from another (proof of concept)
 
-- Every Portal registers `EgymMwa.portalPlugins`: the `EgymMwaNavigation` plugin and the nine Capacitor plugins that the package carries (Preferences, App, Haptics, Keyboard, Status Bar, Browser, Device, SQLite and the EGYM NFC wallet plugin).
+- Each MWA that `EgymMwa.open` shows gets the `EgymMwaNavigation` plugin and the nine Capacitor plugins that the package carries (Preferences, App, Haptics, Keyboard, Status Bar, Browser, Device, SQLite and the EGYM NFC wallet plugin).
 - An MWA calls `EgymMwaNavigation.open` to open the NFC MWA full screen, and the plugin closes it again when NFC sends `dismiss`. The host has no code for this.
-- The Portals run edge to edge. With the carried Status Bar plugin, the MWAs pad the safe area themselves, so a Portal inside the safe area would get the padding twice.
-- Debug builds show a "Plugin test" button. It opens Workouts with buttons that call `open` from the Workouts WebView (open NFC, two quick calls, another app id) and lists each result. Release builds leave it out.
+- The package screen runs its Portal edge to edge. With the carried Status Bar plugin, the MWAs pad the safe area themselves.
+- To call the plugin by hand, open Workouts in a debug build and use the Simulator's WebKit inspector (Safari, Develop menu) on its WebView. Run `Capacitor.Plugins.EgymMwaNavigation.open({ appId: 'dcbe378a', channel: 'reference', startingRoute: '/nfc/home', initialContext: { ...window.portalInitialContext.value, startingRoute: '/nfc/home' } })`. NFC opens full screen, and its back arrow resolves the call with `closedBy: 'dismiss'`.
 
 ### Install capacitor plugins
 
@@ -57,7 +57,7 @@ This is how the repo links `@egym/capacitor-mwa-navigation`, which brings the ni
    ```
 2. In Xcode, select `File -> Add Package Dependencies -> Add Local` and choose `node_modules/<plugin-name>` (the folder containing its `Package.swift` file).
 3. Add the plugin's library product to the `egym-ios-mwa-reference` target.
-4. Register the plugin in the Portal, see below.
+4. Register the plugin on a Portal of your own, see below. The package screen of `EgymMwa.open` registers only the package's plugins, so a plugin that the EGYM MWAs need goes into the package.
 
 #### Option 2: Git Submodules & Manual Wiring
 
@@ -75,7 +75,7 @@ If you prefer to vendor native dependencies, you can wire plugins manually using
 
 #### Registering Plugins in the Portal
 
-Regardless of the installation method, you must register the native plugin in your Portal initialization code. See `ContentView.swift` for an example:
+Regardless of the installation method, a Portal that your app builds itself must register the native plugin in its initialization code:
 
 ```swift
 import EgymMwaNavigationPlugin

@@ -39,6 +39,7 @@ The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and pas
 ### Open one MWA from another (proof of concept)
 
 - Each MWA that `EgymMwa.open` shows gets the `EgymMwaNavigation` plugin and the nine Capacitor plugins that the package carries (Preferences, App, Haptics, Keyboard, Status Bar, Browser, Device, SQLite and the EGYM NFC wallet plugin).
+- The EGYM NFC wallet plugin comes with the package, so the app adds nothing for it. The NFC MWA calls it as `CapacitorNFCPassWallet`: on its home screen it asks `isWalletAvailable` and shows "Add to Apple Wallet" only when the answer is true. When that button shows, the plugin works in this app.
 - An MWA calls `EgymMwaNavigation.open` to open the NFC MWA full screen, and the plugin closes it again when NFC sends `dismiss`. The host has no code for this.
 - The package screen runs its Portal edge to edge. With the carried Status Bar plugin, the MWAs pad the safe area themselves.
 - To call the plugin by hand, open Workouts in a debug build and use the Simulator's WebKit inspector (Safari, Develop menu) on its WebView. Run `Capacitor.Plugins.EgymMwaNavigation.open({ appId: 'dcbe378a', channel: 'reference', startingRoute: '/nfc/home', initialContext: { ...window.portalInitialContext.value, startingRoute: '/nfc/home' } })`. NFC opens full screen, and its back arrow resolves the call with `closedBy: 'dismiss'`.

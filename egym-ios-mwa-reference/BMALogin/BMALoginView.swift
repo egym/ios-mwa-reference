@@ -1,17 +1,12 @@
 import SwiftUI
-import IonicPortals
-import IonicLiveUpdates
-import Capacitor
-import CapacitorNFCPassWalletPlugin
-import PreferencesPlugin
+import EgymMwaNavigationPlugin
 
 /// The "auth as BMA user" screen. After the login, Workouts and NFC open as this member.
 struct BMALoginView: View {
     private struct Session {
         let galaxy: GalaxyClient
-        let exerciserUuid: String
-        let workoutsPortal: Portal
-        let nfcPortal: Portal
+        let exerciser: GalaxyClient.Exerciser
+        var token: String
     }
 
     private struct HostRequest: Decodable {
@@ -29,7 +24,7 @@ struct BMALoginView: View {
 
     var body: some View {
         if let session {
-            ContentView(workoutsPortal: session.workoutsPortal, nfcPortal: session.nfcPortal)
+            ContentView(member: member(of: session))
                 .task { await answerAuthTokenRequests(in: session) }
         } else {
             NavigationStack {
@@ -93,45 +88,39 @@ struct BMALoginView: View {
             let exerciser = try await galaxy.logIn(email: email, password: password)
             let token = try await galaxy.fetchMWAToken(exerciserUuid: exerciser.uuid)
             password = ""
-            session = Session(
-                galaxy: galaxy,
-                exerciserUuid: exerciser.uuid,
-                workoutsPortal: makePortal(name: "egym-workouts", appId: "851e0894", startingRoute: "/workouts/home", exerciser: exerciser, token: token),
-                nfcPortal: makePortal(name: "egym-nfc", appId: "dcbe378a", startingRoute: "/nfc/home", exerciser: exerciser, token: token)
-            )
+            session = Session(galaxy: galaxy, exerciser: exerciser, token: token)
         } catch {
             errorMessage = error.localizedDescription
         }
     }
 
     // The context the BMA apps send, without mwaProtocolVersion: this host does not handle trackEvent.
-    private func makePortal(name: String, appId: String, startingRoute: String, exerciser: GalaxyClient.Exerciser, token: String) -> Portal {
-        Portal(
-            name: name,
-            startDir: "portals/webdir",
+    private func member(of session: Session) -> LoggedInMember {
+        LoggedInMember(
             initialContext: [
-                "startingRoute": startingRoute,
                 "clientId": "egym",
-                "authToken": token,
+                "authToken": session.token,
                 "url": config.mwaApiURL.absoluteString,
-                "gymLocation": exerciser.homeClubUuid,
-                "email": exerciser.email,
+                "gymLocation": session.exerciser.homeClubUuid,
+                "email": session.exerciser.email,
                 "language": "en-US",
-                "preferences": JSObject(),
-                "linking": ["status": "linked", "egymEmail": exerciser.email] as JSObject,
+                "preferences": [String: Any](),
+                "linking": ["status": "linked", "egymEmail": session.exerciser.email],
             ],
-            plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-            liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: false)
-        ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+            channel: config.liveUpdateChannel
+        )
     }
 
     private func answerAuthTokenRequests(in session: Session) async {
         for await event in PortalsPubSub.subscribe(to: "subscription") {
             guard (try? event.decodeData(as: HostRequest.self))?.type == "authToken" else { continue }
             do {
-                let token = try await session.galaxy.fetchMWAToken(exerciserUuid: session.exerciserUuid)
+                let token = try await session.galaxy.fetchMWAToken(exerciserUuid: session.exerciser.uuid)
                 PortalsPubSub.publish(token, to: "authToken")
+                // The next open starts with the new token.
+                self.session?.token = token
             } catch GalaxyClient.Failure.httpStatus(let status, _) where status == 401 || status == 403 {
+                EgymMwa.close()
                 errorMessage = "The Galaxy session has ended. Log in again."
                 self.session = nil
                 return

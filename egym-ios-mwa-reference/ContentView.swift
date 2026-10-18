@@ -1,102 +1,28 @@
 import SwiftUI
-import IonicPortals
-import IonicLiveUpdates
-import Capacitor
-import CapacitorNFCPassWalletPlugin
-import PreferencesPlugin
+import EgymMwaNavigationPlugin
 
-typealias JSONObject = [String: Any]
-
-#if DEBUG
-let IS_WEB_DEBUGGABLE = true
-#else
-let IS_WEB_DEBUGGABLE = false
-#endif
+/// A logged-in BMA member: Workouts and NFC open with this context on this channel.
+struct LoggedInMember {
+  let initialContext: [String: Any]
+  let channel: String
+}
 
 struct ContentView: View {
-  #if canImport(IonicPortals)
-    
-  private static let egymWorkoutsPortal = Portal(
-    name: "egym-workouts",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/workouts/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "851e0894",
-      channel: "reference",
-      syncOnAdd: false
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
-    
-  private static let egymBioagePortal = Portal(
-    name: "egym-bioage",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/bioage/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "068a3720",
-      channel: "reference",
-      syncOnAdd: false
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+  // nil opens Workouts and NFC with the sample context on the channel reference.
+  var member: LoggedInMember?
 
-  private static let egymNfcPortal = Portal(
-    name: "egym-nfc",
-    startDir: "portals/webdir",
-    initialContext: [
-        "startingRoute": "/nfc/home",
-        "email": "email@example.com",
-        "firstName": "Oleksandr",
-        "lastName": "Usyk",
-        "dateOfBirth": "1990-01-01",
-        "gymLocation": "DE01",
-        "language": "de-DE",
-        "measurementSystem": "METRIC",
-        "gender": "MALE",
-//          "memberId": "jwt", // unique member id signed in JWT
-        "cardNumber": "000123123123" // 12 digit number with leading zeros
-      ],
-    plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-    liveUpdateConfig: LiveUpdate(
-      appId: "dcbe378a",
-      channel: "reference",
-      syncOnAdd: false
-    ),
-  ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
-
-  // nil keeps the sample Portal, which is created on its first open.
-  var workoutsPortal: Portal?
-  var nfcPortal: Portal?
-  #endif
-
-  @State private var showWorkoutsWebApp = false
-  @State private var showBioageWebApp = false
-  @State private var showNfcWebApp = false
-  @State private var dismissListener: Task<Void, Never>?
+  private static let sampleContext: [String: Any] = [
+    "email": "email@example.com",
+    "firstName": "Oleksandr",
+    "lastName": "Usyk",
+    "dateOfBirth": "1990-01-01",
+    "gymLocation": "DE01",
+    "language": "de-DE",
+    "measurementSystem": "METRIC",
+    "gender": "MALE",
+//    "memberId": "jwt", // unique member id signed in JWT
+    "cardNumber": "000123123123" // 12 digit number with leading zeros
+  ]
 
   var body: some View {
     VStack(spacing: 16) {
@@ -105,86 +31,29 @@ struct ContentView: View {
         .foregroundStyle(.tint)
       Text("Hello, world!")
 
-      #if canImport(IonicPortals)
-      Button("Workouts MWA") { showWorkoutsWebApp = true }
-        .fullScreenCover(isPresented: $showWorkoutsWebApp, onDismiss: {
-            // cleanup when modal goes away
-            dismissListener?.cancel()
-            dismissListener = nil
-        }) {
-            LiveUpdatePortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal) { showWorkoutsWebApp = false }
-                .onAppear {
-                    dismissListener?.cancel()
-                    dismissListener = Task {
-                        for await event in PortalsPubSub.subscribe(to: "subscription") {
-                
-                            struct ClosePayload: Decodable { let type: String? }
-                            if let decoded = try? event.decodeData(as: ClosePayload.self) {
-                                print("Decoded reason:", decoded.type ?? "n/a")
-                                
-                                if decoded.type == "dismiss" {
-                                    await MainActor.run { showWorkoutsWebApp = false }
-                                }
-                            }
-                        }
-                    }
-                }
-        }
-        
-    Button("Bioage MWA") { showBioageWebApp = true }
-      .fullScreenCover(isPresented: $showBioageWebApp, onDismiss: {
-          // cleanup when modal goes away
-          dismissListener?.cancel()
-          dismissListener = nil
-      }) {
-          LiveUpdatePortalView(portal: Self.egymBioagePortal) { showBioageWebApp = false }
-              .onAppear {
-                  dismissListener?.cancel()
-                  dismissListener = Task {
-                      for await event in PortalsPubSub.subscribe(to: "subscription") {
-              
-                          struct ClosePayload: Decodable { let type: String? }
-                          if let decoded = try? event.decodeData(as: ClosePayload.self) {
-                              print("Decoded reason:", decoded.type ?? "n/a")
-                              
-                              if decoded.type == "dismiss" {
-                                  await MainActor.run { showBioageWebApp = false }
-                              }
-                          }
-                      }
-                  }
-              }
-      }
-
-      Button("NFC MWA") { showNfcWebApp = true }
-      .fullScreenCover(isPresented: $showNfcWebApp, onDismiss: {
-          // cleanup when modal goes away
-          dismissListener?.cancel()
-          dismissListener = nil
-      }) {
-          LiveUpdatePortalView(portal: nfcPortal ?? Self.egymNfcPortal) { showNfcWebApp = false }
-            .onAppear {
-              dismissListener?.cancel()
-              dismissListener = Task {
-                  for await event in PortalsPubSub.subscribe(to: "subscription") {
-                      struct ClosePayload: Decodable { let type: String? }
-                      if let decoded = try? event.decodeData(as: ClosePayload.self) {
-                          print("Decoded reason:", decoded.type ?? "n/a")
-                          
-                          if decoded.type == "dismiss" {
-                              await MainActor.run { showNfcWebApp = false }
-                          }
-                      }
-                  }
-              }
-            }
-      }
-      #else
-      Text("Ionic Portals not available.")
-        .font(.footnote)
-        .foregroundStyle(.secondary)
-      #endif
+      Button("Workouts MWA") { open(appId: "851e0894", startingRoute: "/workouts/home", as: member) }
+      // Bioage always runs with the sample context.
+      Button("Bioage MWA") { open(appId: "068a3720", startingRoute: "/bioage/home", as: nil) }
+      Button("NFC MWA") { open(appId: "dcbe378a", startingRoute: "/nfc/home", as: member) }
+      // The web reference MWA (egym/mwa-reference) demos the EGYM plugins, the MWA navigation plugin among them.
+      Button("Reference MWA") { open(appId: "9d727e58", startingRoute: "/home", as: nil, channel: "develop") }
     }
     .padding()
+  }
+
+  /// The package shows the MWA full screen, loads its live update first and closes it on dismiss.
+  private func open(appId: String, startingRoute: String, as member: LoggedInMember?, channel: String = "reference") {
+    let options = EgymMwaOpenOptions(
+      appId: appId,
+      channel: member?.channel ?? channel,
+      startingRoute: startingRoute,
+      initialContext: member?.initialContext ?? Self.sampleContext
+    )
+    let status = EgymMwa.open(options) { reason in
+      print("\(appId) closed by \(reason.rawValue)")
+    }
+    if status != .opened {
+      print("\(appId) did not open: \(status.rawValue)")
+    }
   }
 }

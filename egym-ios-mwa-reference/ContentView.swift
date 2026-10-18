@@ -35,15 +35,17 @@ struct ContentView: View {
       // Bioage always runs with the sample context.
       Button("Bioage MWA") { open(appId: "068a3720", startingRoute: "/bioage/home", as: nil) }
       Button("NFC MWA") { open(appId: "dcbe378a", startingRoute: "/nfc/home", as: member) }
+      // The web reference MWA (egym/mwa-reference) demos the EGYM plugins, the MWA navigation plugin among them.
+      Button("Reference MWA") { open(appId: "9d727e58", startingRoute: "/home", as: nil, channel: "develop") }
     }
     .padding()
   }
 
   /// The package shows the MWA full screen, loads its live update first and closes it on dismiss.
-  private func open(appId: String, startingRoute: String, as member: LoggedInMember?) {
+  private func open(appId: String, startingRoute: String, as member: LoggedInMember?, channel: String = "reference") {
     let options = EgymMwaOpenOptions(
       appId: appId,
-      channel: member?.channel ?? "reference",
+      channel: member?.channel ?? channel,
       startingRoute: startingRoute,
       initialContext: member?.initialContext ?? Self.sampleContext
     )

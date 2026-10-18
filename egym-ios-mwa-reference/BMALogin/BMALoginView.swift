@@ -120,6 +120,7 @@ struct BMALoginView: View {
                 // The next open starts with the new token.
                 self.session?.token = token
             } catch GalaxyClient.Failure.httpStatus(let status, _) where status == 401 || status == 403 {
+                EgymMwa.close()
                 errorMessage = "The Galaxy session has ended. Log in again."
                 self.session = nil
                 return

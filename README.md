@@ -32,7 +32,7 @@ By default the app opens the MWAs with a sample context and no login. To run Wor
    - `liveUpdateChannel`: the Appflow channel that Workouts and NFC load from.
 3. Run the app and log in with the member's email and password.
 
-The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and passes it as `authToken` in the initial context of Workouts and NFC, as the BMA apps do. When an MWA asks for a new token, the app gets a fresh one from Galaxy and publishes it on the shared Portals channel, and the package passes it on to the MWA. Bioage keeps the sample context and the `reference` channel.
+The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and passes it as `authToken` in the initial context of Workouts and NFC, as the BMA apps do. When an MWA asks for a new token, the app gets a fresh one from Galaxy and publishes it on the shared Portals channel, and the package passes it on to the MWA. When Galaxy ends the session (401 or 403), the app calls `EgymMwa.close()`, so every package screen closes and the login form shows. Bioage keeps the sample context and the `reference` channel.
 
 `BMALogin.json` is git-ignored and holds no password or token. Never commit it. Without it, the app starts with no login screen, exactly as before.
 

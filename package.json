@@ -2,7 +2,7 @@
   "name": "ios-mwa-reference",
   "private": true,
   "dependencies": {
-    "@capacitor/core": "^8.5.3",
+    "@capacitor/core": "^8.6.0",
     "@egym/capacitor-nfc-pass-wallet": "^0.4.1"
   }
 }

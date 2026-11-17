@@ -1,5 +1,5 @@
 import SwiftUI
-import EgymMwaNavigationPlugin
+import EgymMwaSdk
 
 /// The "auth as BMA user" screen. After the login, Workouts and NFC open as this member.
 struct BMALoginView: View {

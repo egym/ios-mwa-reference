@@ -1,20 +1,27 @@
 ### Build from a fresh clone
 
-On this branch, Ionic Portals, Live Updates, Capacitor and the Capacitor plugins come from one EGYM package, `@egym/capacitor-mwa-navigation`, the proof of concept of BMACG-751. The package is not published yet, so npm installs it from a local folder.
+On this branch, Ionic Portals, Live Updates, Capacitor and the Capacitor plugins come from one EGYM package, the EGYM MWA SDK `@egym-private/mwa-sdk`. The app also installs the SDK's navigation plugin, `@egym-private/capacitor-mwa-navigation`. Both packages are in EGYM's private npm registry on JFrog, so the build needs a JFrog token: an EGYM developer uses their own token, and a partner uses the read-only token that EGYM gives them.
 
-1. Install the package's own npm packages in its folder:
+1. Set `EGYM_NPM_TOKEN` to the token in the shell. The committed `.npmrc` reads the token from this variable, so never put the token in a file of the repo:
    ```bash
-   cd <path to lib-capacitor-mwa-navigation>
-   npm install
+   export EGYM_NPM_TOKEN=<your JFrog token>
    ```
-2. Install the npm packages here:
+2. Install the npm packages with Node 22 or later:
    ```bash
    npm ci
    ```
-   `package.json` points at the package by the relative path `../../libs/lib-capacitor-mwa-navigation`. If your checkout sits elsewhere, run `npm install <path to lib-capacitor-mwa-navigation>` instead, and do not commit the changed path.
-3. Open `egym-ios-mwa-reference.xcodeproj` in Xcode and run the app on a simulator. Xcode links the package as a local Swift package from `node_modules/@egym/capacitor-mwa-navigation`.
+   An `E401` or `E404` error for an `@egym-private` package means that `EGYM_NPM_TOKEN` is missing or not valid.
+3. Open `egym-ios-mwa-reference.xcodeproj` in Xcode and run the app on a simulator. Xcode links the package as a local Swift package from `node_modules/@egym-private/mwa-sdk`.
 
 Run `npm ci` again after any change to `package.json` or `package-lock.json`. The package's Swift code comes from `node_modules`, so Xcode builds whatever version is installed there.
+
+To update the two packages, update the SDK first, and then install the plugin range that the new SDK asks for. Then `node_modules` keeps one copy of the plugin, and `npm ls` lists one version. Do not use `npm update` for these two packages, because it keeps the plugin in the range of `package.json`:
+
+```bash
+npm install @egym-private/mwa-sdk@latest
+npm install "@egym-private/capacitor-mwa-navigation@$(node -p "require('@egym-private/mwa-sdk/package.json').dependencies['@egym-private/capacitor-mwa-navigation']")"
+npm ls @egym-private/capacitor-mwa-navigation
+```
 
 Each MWA button calls `EgymMwa.open` from the package (`ContentView.swift`). The package shows the MWA full screen and closes it on `dismiss`. Before each open it syncs the MWA's live update, as the BMA apps do, so the first open on a fresh install is not empty: a loading view shows until the newest build is on the device. The sync waits at most 30 seconds. After that, or when the sync fails, the package opens a build downloaded earlier, and with none it shows "Try again" and "Close".
 
@@ -51,7 +58,7 @@ Capacitor plugins can be installed using two methods. This repository natively s
 
 #### Option 1: NPM package linked as a local Swift package
 
-This is how the repo links `@egym/capacitor-mwa-navigation`, which brings the nine plugins above. To add another plugin via NPM:
+This is how the repo links `@egym-private/mwa-sdk`, which brings the nine plugins above. To add another plugin via NPM:
 
 1. Install the plugin from NPM:
    ```bash
@@ -80,7 +87,7 @@ If you prefer to vendor native dependencies, you can wire plugins manually using
 Regardless of the installation method, a Portal that your app builds itself must register the native plugin in its initialization code:
 
 ```swift
-import EgymMwaNavigationPlugin
+import EgymMwaSdk
 ...
 plugins: EgymMwa.portalPlugins + [.type(MyOtherPlugin.self)],
 ```

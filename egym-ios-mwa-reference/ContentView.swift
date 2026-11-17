@@ -1,5 +1,5 @@
 import SwiftUI
-import EgymMwaNavigationPlugin
+import EgymMwaSdk
 
 /// A logged-in BMA member: Workouts and NFC open with this context on this channel.
 struct LoggedInMember {

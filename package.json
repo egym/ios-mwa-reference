@@ -2,6 +2,7 @@
   "name": "ios-mwa-reference",
   "private": true,
   "dependencies": {
-    "@egym/capacitor-mwa-navigation": "file:../../libs/lib-capacitor-mwa-navigation"
+    "@egym-private/capacitor-mwa-navigation": "^0.3.0",
+    "@egym-private/mwa-sdk": "^0.2.1"
   }
 }

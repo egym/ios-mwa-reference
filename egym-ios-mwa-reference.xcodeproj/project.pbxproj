@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C7A76802E8C0A01008FE324 /* EgymCapacitorMwaNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7A76822E8C0A01008FE324 /* EgymCapacitorMwaNavigation */; };
+		1C7A76802E8C0A01008FE324 /* EgymMwaSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7A76822E8C0A01008FE324 /* EgymMwaSdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C7A76802E8C0A01008FE324 /* EgymCapacitorMwaNavigation in Frameworks */,
+				1C7A76802E8C0A01008FE324 /* EgymMwaSdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			mainGroup = 1C60A6582E8B11EC008A5087;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-mwa-navigation" */,
+				1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym-private/mwa-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1C60A6622E8B11EC008A5087 /* Products */;
@@ -350,17 +350,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-mwa-navigation" */ = {
+		1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym-private/mwa-sdk" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "node_modules/@egym/capacitor-mwa-navigation";
+			relativePath = "node_modules/@egym-private/mwa-sdk";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1C7A76822E8C0A01008FE324 /* EgymCapacitorMwaNavigation */ = {
+		1C7A76822E8C0A01008FE324 /* EgymMwaSdk */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym/capacitor-mwa-navigation" */;
-			productName = EgymCapacitorMwaNavigation;
+			package = 1C7A76812E8C0A01008FE324 /* XCLocalSwiftPackageReference "node_modules/@egym-private/mwa-sdk" */;
+			productName = EgymMwaSdk;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -36,7 +36,7 @@ struct ContentView: View {
     liveUpdateConfig: LiveUpdate(
       appId: "851e0894",
       channel: "reference",
-      syncOnAdd: true
+      syncOnAdd: false
     ),
   ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
     
@@ -60,7 +60,7 @@ struct ContentView: View {
     liveUpdateConfig: LiveUpdate(
       appId: "068a3720",
       channel: "reference",
-      syncOnAdd: true
+      syncOnAdd: false
     ),
   ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
 
@@ -84,7 +84,7 @@ struct ContentView: View {
     liveUpdateConfig: LiveUpdate(
       appId: "dcbe378a",
       channel: "reference",
-      syncOnAdd: true
+      syncOnAdd: false
     ),
   ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
 
@@ -112,7 +112,7 @@ struct ContentView: View {
             dismissListener?.cancel()
             dismissListener = nil
         }) {
-            PortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal)
+            LiveUpdatePortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal) { showWorkoutsWebApp = false }
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -137,7 +137,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: Self.egymBioagePortal)
+          LiveUpdatePortalView(portal: Self.egymBioagePortal) { showBioageWebApp = false }
               .onAppear {
                   dismissListener?.cancel()
                   dismissListener = Task {
@@ -162,7 +162,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: nfcPortal ?? Self.egymNfcPortal)
+          LiveUpdatePortalView(portal: nfcPortal ?? Self.egymNfcPortal) { showNfcWebApp = false }
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {

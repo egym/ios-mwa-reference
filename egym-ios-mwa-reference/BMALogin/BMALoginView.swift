@@ -121,7 +121,7 @@ struct BMALoginView: View {
                 "linking": ["status": "linked", "egymEmail": exerciser.email] as JSObject,
             ],
             plugins: [.type(PreferencesPlugin.self), .type(CapacitorNFCPassWalletPlugin.self)],
-            liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: true)
+            liveUpdateConfig: LiveUpdate(appId: appId, channel: config.liveUpdateChannel, syncOnAdd: false)
         ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
     }
 

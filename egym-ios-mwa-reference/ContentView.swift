@@ -87,6 +87,10 @@ struct ContentView: View {
       syncOnAdd: true
     ),
   ).configuring(\.isWebDebuggable, IS_WEB_DEBUGGABLE)
+
+  // nil keeps the sample Portal, which is created on its first open.
+  var workoutsPortal: Portal?
+  var nfcPortal: Portal?
   #endif
 
   @State private var showWorkoutsWebApp = false
@@ -108,7 +112,7 @@ struct ContentView: View {
             dismissListener?.cancel()
             dismissListener = nil
         }) {
-            PortalView(portal: Self.egymWorkoutsPortal)
+            PortalView(portal: workoutsPortal ?? Self.egymWorkoutsPortal)
                 .onAppear {
                     dismissListener?.cancel()
                     dismissListener = Task {
@@ -158,7 +162,7 @@ struct ContentView: View {
           dismissListener?.cancel()
           dismissListener = nil
       }) {
-          PortalView(portal: Self.egymNfcPortal)
+          PortalView(portal: nfcPortal ?? Self.egymNfcPortal)
             .onAppear {
               dismissListener?.cancel()
               dismissListener = Task {

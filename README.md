@@ -14,6 +14,24 @@ Run `npm ci` again after any change to `package.json` or `package-lock.json`, fo
 
 On a fresh install, the first open of each Portal stays empty while its live update downloads. Restart the app and open the Portal again.
 
+### Log in as a BMA user (optional, EGYM internal)
+
+By default the app opens the MWAs with a sample context and no login. To run Workouts and NFC as a real member of a BMA (Galaxy) brand, add a local config file before you build:
+
+1. Copy the example into the app folder:
+   ```bash
+   cp BMALogin.example.json egym-ios-mwa-reference/BMALogin.json
+   ```
+2. Set its three keys:
+   - `galaxyURL`: the Galaxy host of the member's brand.
+   - `mwaApiURL`: the mwa-api host of the same environment. The MWAs send every request there.
+   - `liveUpdateChannel`: the Appflow channel that Workouts and NFC load from.
+3. Run the app and log in with the member's email and password.
+
+The app then logs in at Galaxy, gets the member's MWA token from Galaxy, and passes it as `authToken` in the initial context of Workouts and NFC, as the BMA apps do. When an MWA asks for a new token, the app gets a fresh one from Galaxy. Bioage keeps the sample context and the `reference` channel.
+
+`BMALogin.json` is git-ignored and holds no password or token. Never commit it. Without it, the app starts with no login screen, exactly as before.
+
 ### Install capacitor plugins
 
 Capacitor plugins can be installed using two methods. This repository natively supports both approaches.

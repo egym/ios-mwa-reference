@@ -9,3 +9,4 @@ egym-ios-mwa-reference/capacitor.config.json
 egym-ios-mwa-reference/config.xml
 egym-ios-mwa-reference/public/
 .DS_Store
+egym-ios-mwa-reference/BMALogin.json
